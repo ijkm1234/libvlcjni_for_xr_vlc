@@ -1,10 +1,10 @@
-From f6e6faaf1d6f8fc4cd72b9942e1b5a3d6bc992a9 Mon Sep 17 00:00:00 2001
-Message-Id: <f6e6faaf1d6f8fc4cd72b9942e1b5a3d6bc992a9.1688645790.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From c5e81387db1b48dc6921b5f632886f2372e7f0d4 Mon Sep 17 00:00:00 2001
+Message-ID: <c5e81387db1b48dc6921b5f632886f2372e7f0d4.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Wed, 4 Aug 2021 13:33:50 +0200
-Subject: [PATCH 11/21] media_player: backport fast seek argument
+Subject: [PATCH 10/20] media_player: backport fast seek argument
 
 The fast-seek option is not global anymore but related to each seek
 requests.
@@ -21,10 +21,10 @@ Message-Id: <c12502e7927286454abeb35584b32ce6bcc87f51.1664886558.git.dev.asenat@
  4 files changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/include/vlc/libvlc_media_player.h b/include/vlc/libvlc_media_player.h
-index bc0d1f774c..007a5eb419 100644
+index c1cbffa598..f8e78f49ad 100644
 --- a/include/vlc/libvlc_media_player.h
 +++ b/include/vlc/libvlc_media_player.h
-@@ -801,8 +801,10 @@ LIBVLC_API libvlc_time_t libvlc_media_player_get_time( libvlc_media_player_t *p_
+@@ -803,8 +803,10 @@ LIBVLC_API libvlc_time_t libvlc_media_player_get_time( libvlc_media_player_t *p_
   *
   * \param p_mi the Media Player
   * \param i_time the movie time (in ms).
@@ -36,7 +36,7 @@ index bc0d1f774c..007a5eb419 100644
  
  /**
   * Get movie position as percentage between 0.0 and 1.0.
-@@ -819,8 +821,10 @@ LIBVLC_API float libvlc_media_player_get_position( libvlc_media_player_t *p_mi )
+@@ -821,8 +823,10 @@ LIBVLC_API float libvlc_media_player_get_position( libvlc_media_player_t *p_mi )
   *
   * \param p_mi the Media Player
   * \param f_pos the position
@@ -124,7 +124,7 @@ index 9d057b3b96..e513b24834 100644
              }
              if( i_ret )
 diff --git a/src/input/input_internal.h b/src/input/input_internal.h
-index 231e27030c..e644ab49e9 100644
+index 3ce907e2de..242af7072d 100644
 --- a/src/input/input_internal.h
 +++ b/src/input/input_internal.h
 @@ -104,7 +104,6 @@ typedef struct input_thread_private_t
@@ -136,5 +136,5 @@ index 231e27030c..e644ab49e9 100644
      /* Output */
      bool            b_out_pace_control; /* XXX Move it ot es_sout ? */
 -- 
-2.39.2
+2.43.0
 

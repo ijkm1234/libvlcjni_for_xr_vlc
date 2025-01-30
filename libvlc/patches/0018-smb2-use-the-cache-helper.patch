@@ -1,10 +1,10 @@
-From a76c239ef349c46510085d482319d50a707abe2c Mon Sep 17 00:00:00 2001
-Message-Id: <a76c239ef349c46510085d482319d50a707abe2c.1688645790.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From 636e15fd3015908fb5211dcb2d2c7d5585ba2cc1 Mon Sep 17 00:00:00 2001
+Message-ID: <636e15fd3015908fb5211dcb2d2c7d5585ba2cc1.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Fri, 21 Jan 2022 17:28:13 +0100
-Subject: [PATCH 20/21] smb2: use the cache helper
+Subject: [PATCH 18/20] smb2: use the cache helper
 
 Cache the smb2 session when closing. It will be re-used if an other
 access is opened on the same server/share/username within 5 seconds.
@@ -147,5 +147,5 @@ index 784cbb26d2..95fd5ab1de 100644
      vlc_UrlClean(&sys->encoded_url);
  }
 -- 
-2.39.2
+2.43.0
 

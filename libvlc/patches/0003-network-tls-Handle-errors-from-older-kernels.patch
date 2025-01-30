@@ -1,10 +1,10 @@
-From 6439d87df706b499de44a7eea1a85951ff6786db Mon Sep 17 00:00:00 2001
-Message-Id: <6439d87df706b499de44a7eea1a85951ff6786db.1688645789.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From d1c5f3c235f6be4e08d935348abbe4e7a3687eec Mon Sep 17 00:00:00 2001
+Message-ID: <d1c5f3c235f6be4e08d935348abbe4e7a3687eec.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Fri, 29 Mar 2019 10:56:26 +0100
-Subject: [PATCH 03/21] network: tls: Handle errors from older kernels
+Subject: [PATCH 03/20] network: tls: Handle errors from older kernels
 
 If MSG_FASTOPEN is defined, but turns out to be unimplemented by the
 underlying kernel (as is the case on android where the NDK claims to
@@ -50,5 +50,5 @@ index d464cb315f..08e71e53a8 100644
  #else
      tls->writev = vlc_tls_SocketWrite;
 -- 
-2.39.2
+2.43.0
 

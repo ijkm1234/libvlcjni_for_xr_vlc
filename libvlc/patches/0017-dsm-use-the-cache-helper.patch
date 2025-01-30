@@ -1,10 +1,10 @@
-From 1811365dbd6f1fa233e3b624462c38042580a6bf Mon Sep 17 00:00:00 2001
-Message-Id: <1811365dbd6f1fa233e3b624462c38042580a6bf.1688645790.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From abed9aa9ebec757e6f2697fd93ba5a4003c85501 Mon Sep 17 00:00:00 2001
+Message-ID: <abed9aa9ebec757e6f2697fd93ba5a4003c85501.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Tue, 25 Jan 2022 13:17:02 +0100
-Subject: [PATCH 19/21] dsm: use the cache helper
+Subject: [PATCH 17/20] dsm: use the cache helper
 
 Cache the dsm session when closing. It will be re-used if an other
 access is opened on the same server/share/username within 5 seconds.
@@ -178,5 +178,5 @@ index ebacf1c187..9d18aa82e7 100644
  error:
      vlc_credential_clean( &credential );
 -- 
-2.39.2
+2.43.0
 

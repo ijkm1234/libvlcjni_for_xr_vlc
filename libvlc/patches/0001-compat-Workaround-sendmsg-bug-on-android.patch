@@ -1,8 +1,8 @@
-From 6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b Mon Sep 17 00:00:00 2001
-Message-Id: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From e0f1ebfe2353a812b00011cddea923b56fa79c4a Mon Sep 17 00:00:00 2001
+Message-ID: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Thu, 28 Mar 2019 15:23:48 +0100
-Subject: [PATCH 01/21] compat: Workaround sendmsg bug on android
+Subject: [PATCH 01/20] compat: Workaround sendmsg bug on android
 
 This only happens on 64bits builds, see compat/sendmsg.c comments
 Message-Id: <b75b490465c538e50780039dc796724974033db0.1593695247.git.thomas@gllm.fr>
@@ -24,10 +24,10 @@ Message-Id: <1c60b920e01d183ec81d9c862015e336b11b7816.1664886557.git.dev.asenat@
  3 files changed, 33 insertions(+)
 
 diff --git a/compat/sendmsg.c b/compat/sendmsg.c
-index 0f42e782f8..8d69048746 100644
+index 36470623e3..760b529b84 100644
 --- a/compat/sendmsg.c
 +++ b/compat/sendmsg.c
-@@ -129,6 +129,30 @@ ssize_t sendmsg(int fd, const struct msghdr *msg, int flags)
+@@ -169,6 +169,30 @@ ssize_t sendmsg(int fd, const struct msghdr *msg, int flags)
      free(data);
      return res;
  }
@@ -59,10 +59,10 @@ index 0f42e782f8..8d69048746 100644
  #else
  #error sendmsg not implemented on your platform!
 diff --git a/configure.ac b/configure.ac
-index ccb8cc235a..9c3c80ea89 100644
+index b454198157..8291fae214 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -405,6 +405,9 @@ AS_IF([test "$SYS" = linux],[
+@@ -406,6 +406,9 @@ AS_IF([test "$SYS" = linux],[
      ],[
        HAVE_ANDROID="1"
        AC_MSG_RESULT([yes])
@@ -73,10 +73,10 @@ index ccb8cc235a..9c3c80ea89 100644
        AC_MSG_RESULT([no])
      ])
 diff --git a/include/vlc_network.h b/include/vlc_network.h
-index 010454a01c..1b36e3d574 100644
+index e39ffd0bac..e2d748e3df 100644
 --- a/include/vlc_network.h
 +++ b/include/vlc_network.h
-@@ -290,6 +290,12 @@ static inline void net_SetPort (struct sockaddr *addr, uint16_t port)
+@@ -306,6 +306,12 @@ static inline void net_SetPort (struct sockaddr *addr, uint16_t port)
  
  VLC_API char *vlc_getProxyUrl(const char *);
  
@@ -90,5 +90,5 @@ index 010454a01c..1b36e3d574 100644
  }
  # endif
 -- 
-2.39.2
+2.43.0
 

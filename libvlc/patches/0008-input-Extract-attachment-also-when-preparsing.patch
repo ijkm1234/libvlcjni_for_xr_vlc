@@ -1,10 +1,10 @@
-From ec818cdc2a4750da90f34797d8690c219848e6f1 Mon Sep 17 00:00:00 2001
-Message-Id: <ec818cdc2a4750da90f34797d8690c219848e6f1.1688645789.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From 9abb51909b2eb015de7d329d5ca846340c6cad90 Mon Sep 17 00:00:00 2001
+Message-ID: <9abb51909b2eb015de7d329d5ca846340c6cad90.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Fri, 29 Nov 2019 15:41:08 +0100
-Subject: [PATCH 08/21] input: Extract attachment also when preparsing
+Subject: [PATCH 08/20] input: Extract attachment also when preparsing
 
 Message-Id: <90f80f4face6fe96f631651d8c212541a6539a34.1606132271.git.hugo@beauzee.fr>
 Message-Id: <4e829aba815aa6faf4a8d4ee8076abb8e20c7059.1607001652.git.nicolas@videolabs.io>
@@ -531,7 +531,7 @@ index 7c93e41d5f..ef763fb1f0 100644
  
  #include <vlc_common.h>
 diff --git a/lib/media_list_player.c b/lib/media_list_player.c
-index 7f4d427f63..5f3d4829de 100644
+index c76cd6934e..64b5c0964e 100644
 --- a/lib/media_list_player.c
 +++ b/lib/media_list_player.c
 @@ -33,6 +33,7 @@
@@ -897,10 +897,10 @@ index 8dcfeee3b4..b92c000c2a 100644
          return VLC_SUCCESS;
      }
 diff --git a/modules/codec/libass.c b/modules/codec/libass.c
-index efe268b4e5..0df5c90589 100644
+index e537bed2a0..c70b195f2c 100644
 --- a/modules/codec/libass.c
 +++ b/modules/codec/libass.c
-@@ -196,7 +196,7 @@ static int Create( vlc_object_t *p_this )
+@@ -198,7 +198,7 @@ static int Create( vlc_object_t *p_this )
  
              ass_add_font( p_sys->p_library, p_attach->psz_name, p_attach->p_data, p_attach->i_data );
          }
@@ -947,7 +947,7 @@ index 3b355bb3fa..f4c2280f3a 100644
              *pi_int = i;
              return VLC_SUCCESS;
 diff --git a/modules/demux/avi/avi.c b/modules/demux/avi/avi.c
-index 4a8296d8ff..01f6947ab7 100644
+index a3204ea204..74bda35cf8 100644
 --- a/modules/demux/avi/avi.c
 +++ b/modules/demux/avi/avi.c
 @@ -294,7 +294,7 @@ static void Close ( vlc_object_t * p_this )
@@ -959,7 +959,7 @@ index 4a8296d8ff..01f6947ab7 100644
      free(p_sys->attachment);
  
      free( p_sys );
-@@ -1898,7 +1898,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
+@@ -1900,7 +1900,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
              {
                  *pi_int = p_sys->i_attachment;
                  for( unsigned i = 0; i < p_sys->i_attachment; i++ )
@@ -1027,7 +1027,7 @@ index dc67c613fd..282b095614 100644
      std::vector<virtual_segment_c*>  used_vsegments;
      virtual_segment_c                *p_current_vsegment;
 diff --git a/modules/demux/mkv/matroska_segment_parse.cpp b/modules/demux/mkv/matroska_segment_parse.cpp
-index 601d12f4a6..87ade76927 100644
+index 37a650d539..2c1190ec5a 100644
 --- a/modules/demux/mkv/matroska_segment_parse.cpp
 +++ b/modules/demux/mkv/matroska_segment_parse.cpp
 @@ -1333,33 +1333,31 @@ void matroska_segment_c::ParseAttachments( KaxAttachments *attachments )
@@ -1144,7 +1144,7 @@ index 27a1566c43..a78eecd532 100644
  struct matroska_stream_c
  {
 diff --git a/modules/demux/mp4/mp4.c b/modules/demux/mp4/mp4.c
-index 0c024b181e..c8995bc7b7 100644
+index bcdb244807..5c9f068b7a 100644
 --- a/modules/demux/mp4/mp4.c
 +++ b/modules/demux/mp4/mp4.c
 @@ -122,6 +122,8 @@ struct demux_sys_t
@@ -1156,7 +1156,7 @@ index 0c024b181e..c8995bc7b7 100644
  };
  
  #define DEMUX_INCREMENT (CLOCK_FREQ / 4) /* How far the pcr will go, each round */
-@@ -741,6 +743,7 @@ static int Open( vlc_object_t * p_this )
+@@ -798,6 +800,7 @@ static int Open( vlc_object_t * p_this )
      p_demux->pf_control = Control;
  
      p_sys->context.i_lastseqnumber = UINT32_MAX;
@@ -1164,7 +1164,7 @@ index 0c024b181e..c8995bc7b7 100644
  
      p_demux->p_sys = p_sys;
  
-@@ -1994,112 +1997,123 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
+@@ -2053,112 +2056,123 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
              input_attachment_t ***ppp_attach = va_arg( args, input_attachment_t*** );
              int *pi_int = va_arg( args, int * );
  
@@ -1375,7 +1375,7 @@ index 0c024b181e..c8995bc7b7 100644
              return VLC_SUCCESS;
          }
  
-@@ -2198,6 +2212,10 @@ static void Close ( vlc_object_t * p_this )
+@@ -2257,6 +2271,10 @@ static void Close ( vlc_object_t * p_this )
          MP4_TrackClean( p_demux->out, &p_sys->track[i_track] );
      free( p_sys->track );
  
@@ -1800,7 +1800,7 @@ index fcd3ecbf55..ccfdf2b730 100644
  
      es_out_ControlSetMeta( input_priv(p_input)->p_es_out, p_meta );
 diff --git a/src/input/input_internal.h b/src/input/input_internal.h
-index d29731edca..231e27030c 100644
+index ea02f39f5a..3ce907e2de 100644
 --- a/src/input/input_internal.h
 +++ b/src/input/input_internal.h
 @@ -130,7 +130,6 @@ typedef struct input_thread_private_t
@@ -1845,5 +1845,5 @@ index a15ba0d923..8ce2287e45 100644
 +vlc_input_attachment_Hold
 +vlc_input_attachment_Release
 -- 
-2.39.2
+2.43.0
 

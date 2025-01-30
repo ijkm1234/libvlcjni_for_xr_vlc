@@ -1,10 +1,10 @@
-From 7960c8389d4dbe18166ed68eeb6ea5fcc5d177c9 Mon Sep 17 00:00:00 2001
-Message-Id: <7960c8389d4dbe18166ed68eeb6ea5fcc5d177c9.1688645790.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From f9ee71141077ffcf55dfc9bdbf927cc0b8dee8bb Mon Sep 17 00:00:00 2001
+Message-ID: <f9ee71141077ffcf55dfc9bdbf927cc0b8dee8bb.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: Alaric Senat <dev.asenat@posteo.net>
 Date: Tue, 4 Oct 2022 14:19:02 +0200
-Subject: [PATCH 21/21] upnp: android: implement net-intf priority
+Subject: [PATCH 19/20] upnp: android: implement net-intf priority
 
 Since we let libUPNP choose the network interface itself. Some android
 setups have been encountering problems where their roaming interface was
@@ -25,10 +25,10 @@ Message-Id: <7ed08b496d4483115e99a6cda0cd88aa9e325abb.1664886558.git.dev.asenat@
  1 file changed, 142 insertions(+), 7 deletions(-)
 
 diff --git a/modules/services_discovery/upnp.cpp b/modules/services_discovery/upnp.cpp
-index 899f5ab9ae..1e1cb3d30f 100644
+index 8b021af00e..6b3479357f 100644
 --- a/modules/services_discovery/upnp.cpp
 +++ b/modules/services_discovery/upnp.cpp
-@@ -1437,7 +1437,7 @@ static IP_ADAPTER_ADDRESSES* ListAdapters()
+@@ -1400,7 +1400,7 @@ static IP_ADAPTER_ADDRESSES* ListAdapters()
      return addresses;
  }
  
@@ -37,7 +37,7 @@ index 899f5ab9ae..1e1cb3d30f 100644
  {
      IP_ADAPTER_ADDRESSES *p_adapter, *addresses;
  
-@@ -1562,7 +1562,7 @@ done:
+@@ -1525,7 +1525,7 @@ done:
  #include <SystemConfiguration/SystemConfiguration.h>
  #include "vlc_charset.h"
  
@@ -46,7 +46,7 @@ index 899f5ab9ae..1e1cb3d30f 100644
  {
      SCDynamicStoreRef session = SCDynamicStoreCreate(NULL, CFSTR("session"), NULL, NULL);
      if (session == NULL)
-@@ -1594,7 +1594,7 @@ inline bool necessaryFlagsSetOnInterface(struct ifaddrs *anInterface)
+@@ -1557,7 +1557,7 @@ inline bool necessaryFlagsSetOnInterface(struct ifaddrs *anInterface)
      return false;
  }
  
@@ -55,7 +55,7 @@ index 899f5ab9ae..1e1cb3d30f 100644
  {
      struct ifaddrs *listOfInterfaces;
      struct ifaddrs *anInterface;
-@@ -1622,9 +1622,144 @@ inline char *getPreferedAdapter()
+@@ -1585,9 +1585,144 @@ inline char *getPreferedAdapter()
  
  #endif
  
@@ -202,7 +202,7 @@ index 899f5ab9ae..1e1cb3d30f 100644
  {
      return NULL;
  }
-@@ -1666,8 +1801,8 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
+@@ -1629,8 +1764,8 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
      #if UPNP_VERSION >= 10803 || defined( UPNP_ENABLE_IPV6 )
          char* psz_miface = var_InheritString( p_obj, "miface" );
          if (psz_miface == NULL)
@@ -214,5 +214,5 @@ index 899f5ab9ae..1e1cb3d30f 100644
          free( psz_miface );
      #else
 -- 
-2.39.2
+2.43.0
 

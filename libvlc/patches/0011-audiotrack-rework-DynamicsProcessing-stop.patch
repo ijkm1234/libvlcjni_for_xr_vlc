@@ -1,10 +1,10 @@
-From ae14a29c261112202c058400acd826477e1e3574 Mon Sep 17 00:00:00 2001
-Message-Id: <ae14a29c261112202c058400acd826477e1e3574.1688645790.git.thomas@gllm.fr>
-In-Reply-To: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
-References: <6fb4546c5bf2f6114ce6ddfd169499d9070d7e8b.1688645789.git.thomas@gllm.fr>
+From 9bcec60343c26b0f3ce7c6e85aba807caa9d87f7 Mon Sep 17 00:00:00 2001
+Message-ID: <9bcec60343c26b0f3ce7c6e85aba807caa9d87f7.1738244316.git.dcn.mcnamara@gmail.com>
+In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Tue, 10 Aug 2021 11:06:25 +0200
-Subject: [PATCH 12/21] audiotrack: rework DynamicsProcessing stop
+Subject: [PATCH 11/20] audiotrack: rework DynamicsProcessing stop
 
 Specifically disable it before unreferencing the jobject and destroy it
 before AudioTrack.
@@ -53,5 +53,5 @@ index 1f70f00e46..cb290838ec 100644
      if( p_sys->timestamp.p_obj )
      {
 -- 
-2.39.2
+2.43.0
 
