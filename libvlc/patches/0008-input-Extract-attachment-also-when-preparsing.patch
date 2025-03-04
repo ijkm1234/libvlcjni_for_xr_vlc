@@ -1103,12 +1103,12 @@ index cce9e34002..e7ab81721a 100644
              return VLC_SUCCESS;
  
 diff --git a/modules/demux/mkv/mkv.hpp b/modules/demux/mkv/mkv.hpp
-index 27a1566c43..a78eecd532 100644
+index 8497d087425..402ed6d08e7 100644
 --- a/modules/demux/mkv/mkv.hpp
 +++ b/modules/demux/mkv/mkv.hpp
-@@ -125,36 +125,6 @@ void BlockDecode( demux_t *p_demux, KaxBlock *block, KaxSimpleBlock *simpleblock
-                   vlc_tick_t i_pts, vlc_tick_t i_duration, bool b_key_picture,
-                   bool b_discardable_picture );
+@@ -133,36 +133,6 @@ Type * FindNextChild(const EbmlMaster & Master, const Type & PastElt)
+ 
+ using namespace LIBMATROSKA_NAMESPACE;
  
 -class attachment_c
 -{
