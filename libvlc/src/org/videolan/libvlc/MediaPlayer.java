@@ -1252,6 +1252,24 @@ public class MediaPlayer extends VLCObject<MediaPlayer.Event> {
     }
 
     /**
+     * Gets currently selected teletext page.
+     * @return the currently selected teletext page.
+     */
+    public int getTeletext(){
+        return nativeGetTeletext();
+    }
+
+    /**
+     * Select a teletext page.
+     * If telexext was not active, activate teletext.
+     * @param page: page to change to
+     */
+    public void setTeletext(int page){
+        nativeSetTeletext(page);
+    }
+
+
+    /**
      * Add a slave (or subtitle) to the current media player.
      *
      * @param type see {@link IMedia.Slave.Type}
@@ -1489,4 +1507,7 @@ public class MediaPlayer extends VLCObject<MediaPlayer.Event> {
     private native boolean nativeAddSlave(int type, String location, boolean select);
     private native boolean nativeRecord(String directory);
     private native boolean nativeSetEqualizer(Equalizer equalizer);
+    private native int nativeGetTeletext();
+    private native void nativeSetTeletext(int page);
+
 }
