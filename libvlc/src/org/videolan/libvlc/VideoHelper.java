@@ -179,6 +179,10 @@ class VideoHelper implements IVLCVout.OnNewVideoLayoutListener {
                 mMediaPlayer.setAspectRatio("16:10");
                 mMediaPlayer.setScale(0);
                 break;
+            case SURFACE_2_1:
+                mMediaPlayer.setAspectRatio("2:1");
+                mMediaPlayer.setScale(0);
+                break;
             case SURFACE_221_1:
                 mMediaPlayer.setAspectRatio("2.21:1");
                 mMediaPlayer.setScale(0);
