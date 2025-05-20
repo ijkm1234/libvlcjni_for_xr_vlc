@@ -294,6 +294,7 @@ avlc_build()
 
 VLC_CONTRIB_ARGS="\
     --enable-dvdnav \
+    --disable-a52 \
     --disable-dca \
     --disable-goom \
     --disable-chromaprint \
