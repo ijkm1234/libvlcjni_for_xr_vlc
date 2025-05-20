@@ -33,7 +33,7 @@ LOCAL_LDLIBS := \
     $(VLC_BUILD_DIR)/compat/.libs/libcompat.a \
     $(VLC_CONTRIB_LDFLAGS) \
     -ldl -lz -lm -llog \
-    -la52 -ljpeg \
+    -ljpeg \
     $(VLC_LDFLAGS)
 LOCAL_CXXFLAGS := -std=c++11
 # This duplicates the libvlc* link flags, but it propagates the dependency
