@@ -679,7 +679,6 @@ touch $VLC_OUT_PATH/dummy.cpp
 
 $NDK_BUILD -C $LIBVLCJNI_SRC_DIR/libvlc \
     APP_STL="c++_shared" \
-    APP_CPPFLAGS="-frtti -fexceptions" \
     VLC_SRC_DIR="$VLC_SRC_DIR" \
     VLC_BUILD_DIR="$VLC_BUILD_DIR" \
     VLC_CONTRIB="$VLC_CONTRIB" \
