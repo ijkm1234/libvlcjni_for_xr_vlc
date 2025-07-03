@@ -82,7 +82,7 @@ android {
         exclude '**/*.txt'
     }
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
 }
 
