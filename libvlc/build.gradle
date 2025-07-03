@@ -6,12 +6,18 @@ def vlcSrcDirs = System.getenv('GRADLE_VLC_SRC_DIRS')
 ext {
     library_version = "$rootProject.ext.libvlcVersion"
 }
+
+def libvlc_revision = providers.exec {
+    commandLine('git', 'rev-parse', '--short', 'HEAD')
+}.standardOutput.asText.get().trim()
+
+
 android {
 
     namespace = 'org.videolan'
 
     defaultConfig {
-        resValue "string", "build_libvlc_revision", libvlcRevision()
+        resValue "string", "build_libvlc_revision", libvlc_revision
         resValue "string", "build_vlc_revision", vlcRevision()
         tasks.whenTaskAdded { task ->
             if (task.name.startsWith('merge')) {
@@ -93,15 +99,6 @@ clean {
 dependencies {
     api "androidx.annotation:annotation:$rootProject.ext.androidxAnnotationVersion"
     api "androidx.legacy:legacy-support-v4:$rootProject.ext.androidxLegacyVersion"
-}
-
-def libvlcRevision() {
-    def vlc = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'rev-parse', '--short', 'HEAD'
-        standardOutput = vlc
-    }
-    return vlc.toString()
 }
 
 def vlcRevision() {
