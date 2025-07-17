@@ -20,6 +20,7 @@ while [ $# -gt 0 ]; do
         help|--help)
             echo "Use -a to set the ARCH"
             echo "Use --release to build in release mode"
+            echo "Use --static-cpp use static C++ runtime"
             exit 1
             ;;
         a|-a)
@@ -37,6 +38,9 @@ while [ $# -gt 0 ]; do
             ;;
         --no-jni)
             AVLC_BUILD_JNI=0
+            ;;
+        --static-cpp)
+            AVLC_STATIC_CXX=1
             ;;
     esac
     shift
@@ -184,6 +188,10 @@ fi
 VLC_CFLAGS="${VLC_CFLAGS} -fPIC -fdata-sections -ffunction-sections -funwind-tables \
  -fstack-protector-strong -no-canonical-prefixes"
 VLC_CXXFLAGS="-fexceptions -frtti"
+
+if [ "$AVLC_STATIC_CXX" = 1 ]; then
+    VLC_CXXFLAGS="$VLC_CXXFLAGS -static -static-libstdc++"
+fi
 
 # Release or not?
 if [ "$AVLC_RELEASE" = 1 ]; then
@@ -684,8 +692,14 @@ echo -e "ndk-build vlc"
 
 touch $VLC_OUT_PATH/dummy.cpp
 
+if [ "$AVLC_STATIC_CXX" = 1 ]; then
+    VLC_APP_STL="c++_static"
+else
+    VLC_APP_STL="c++_shared"
+fi
+
 $NDK_BUILD -C $LIBVLCJNI_SRC_DIR/libvlc \
-    APP_STL="c++_shared" \
+    APP_STL="$VLC_APP_STL" \
     VLC_SRC_DIR="$VLC_SRC_DIR" \
     VLC_BUILD_DIR="$VLC_BUILD_DIR" \
     VLC_CONTRIB="$VLC_CONTRIB" \
