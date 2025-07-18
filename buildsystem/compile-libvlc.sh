@@ -498,8 +498,7 @@ mkdir -p $VLC_CONTRIB_DIR/lib/pkgconfig
 rm -f $VLC_CONTRIB_DIR/config.mak
 
 # gettext
-which autopoint >/dev/null
-if [ ! $? -eq 0 ];then
+if which autopoint >/dev/null; then
     VLC_CONTRIB_ARGS="$VLC_CONTRIB_ARGS --enable-gettext"
 else
     VLC_CONTRIB_ARGS="$VLC_CONTRIB_ARGS --disable-gettext"
