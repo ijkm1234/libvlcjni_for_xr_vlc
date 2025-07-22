@@ -116,6 +116,20 @@ else
     exit 1
 fi
 
+
+if [ "$AVLC_STATIC_CXX" = 1 ]; then
+    # check if the NDK is patched
+    NDK_HAS_STATIC_PATCH="$(grep "^    LOCAL_LDFLAGS += -nostdlib++" $ANDROID_NDK/build/core/build-binary.mk || echo PATCHED)"
+    if [ "$NDK_HAS_STATIC_PATCH" != "PATCHED" ]; then
+        echo "NDK 21 not patched for proper static C++ runtime"
+        sed -i.orig 's/LOCAL_LDFLAGS += -nostdlib++/ # LOCAL_LDFLAGS += -nostdlib++/' $ANDROID_NDK/build/core/build-binary.mk
+        if [ ! $? -eq 0 ];then
+            echo "$1"
+            exit 1
+        fi
+    fi
+fi
+
 ############
 # VLC PATH #
 ############
