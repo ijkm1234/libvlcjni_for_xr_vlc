@@ -24,6 +24,10 @@
 #include <stdlib.h>
 #include <dlfcn.h>
 
+#if !(defined(LIBVLC_VERSION_MAJOR) && LIBVLC_VERSION_MAJOR >= 4)
+# include <string.h> // strcmp
+#endif
+
 #include "libvlcjni-vlcobject.h"
 
 #define THREAD_NAME "libvlcjni"
