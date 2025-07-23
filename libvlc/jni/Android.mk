@@ -34,7 +34,8 @@ LOCAL_LDLIBS := \
     $(VLC_CONTRIB_LDFLAGS) \
     -ldl -lz -lm -llog \
     -ljpeg \
-    $(VLC_LDFLAGS)
+    $(VLC_LDFLAGS) \
+    -Wl,-Bsymbolic
 LOCAL_CXXFLAGS := -std=c++11
 LOCAL_LDFLAGS += "-Wl,-z,max-page-size=16384"
 # This duplicates the libvlc* link flags, but it propagates the dependency
