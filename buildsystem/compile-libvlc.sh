@@ -186,7 +186,11 @@ NDK_TOOLCHAIN_DIR=${ANDROID_NDK}/toolchains/llvm/prebuilt/${host_tag}-x86_64
 NDK_TOOLCHAIN_PATH=${NDK_TOOLCHAIN_DIR}/bin
 # Add the NDK toolchain to the PATH, needed both for contribs and for building
 # stub libraries
+if [ $REL -lt "27" ]; then
 CROSS_TOOLS=${NDK_TOOLCHAIN_PATH}/${TARGET_TUPLE}-
+else
+CROSS_TOOLS=${NDK_TOOLCHAIN_PATH}/llvm-
+fi
 CROSS_CLANG=${NDK_TOOLCHAIN_PATH}/${CLANG_PREFIX}${ANDROID_API}-clang
 
 export PATH="${NDK_TOOLCHAIN_PATH}:${PATH}"
