@@ -113,4 +113,7 @@ def vlcRevision() {
     return vlc.toString()
 }
 
-apply from: '../../buildsystem/publish.gradle'
+// built inside vlc-android
+if (file('../../buildsystem/publish.gradle').exists()) {
+    apply from: '../../buildsystem/publish.gradle'
+}
