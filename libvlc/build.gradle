@@ -11,9 +11,6 @@ android {
     namespace 'org.videolan'
 
     defaultConfig {
-        compileSdkVersion rootProject.ext.compileSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        minSdkVersion rootProject.ext.minSdkVersion
         resValue "string", "build_libvlc_revision", libvlcRevision()
         resValue "string", "build_vlc_revision", vlcRevision()
         tasks.whenTaskAdded { task ->
