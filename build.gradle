@@ -29,3 +29,9 @@ allprojects {
         options.addStringOption('encoding', 'UTF-8')
     }
 }
+
+ext {
+    libvlcVersion = '3.6.2'
+    androidxLegacyVersion = '1.0.0'
+    androidxAnnotationVersion = '1.7.1'
+}
