@@ -643,7 +643,7 @@ fi
 echo "Building"
 make -C $VLC_BUILD_DIR $MAKEFLAGS
 avlc_checkfail "vlc: make failed"
-make -C $VLC_BUILD_DIR install
+make -C $VLC_BUILD_DIR $MAKEFLAGS install
 avlc_checkfail "vlc: make install failed"
 
 ##################
