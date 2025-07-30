@@ -37,16 +37,8 @@ variables:
         gradle assembleDebug
 
     rules:
-        # Explicitely refuse to build anything that would also trigger
-        # a medialib build
       - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-        changes:
-          - buildsystem/**/*
-        when: never
-      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-        changes:
-          - libvlc/**/*
-      - if: '$CI_PIPELINE_SOURCE == "push"'
+        when: always
 
 #################################
 # Template config instantiation #
