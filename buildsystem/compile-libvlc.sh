@@ -223,7 +223,7 @@ VLC_LDFLAGS="-z max-page-size=16384"
 
 
 if [ "$AVLC_STATIC_CXX" = 1 ]; then
-    VLC_CXXFLAGS="$VLC_CXXFLAGS -static -static-libstdc++"
+    VLC_CXXFLAGS="$VLC_CXXFLAGS -static --start-no-unused-arguments -static-libstdc++ --end-no-unused-arguments"
 fi
 
 # Release or not?
