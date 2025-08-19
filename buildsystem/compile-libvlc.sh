@@ -289,7 +289,6 @@ avlc_build()
 ###########################
 
 VLC_CONTRIB_ARGS="\
-    --enable-dvdnav \
     --disable-a52 \
     --disable-dca \
     --disable-goom \
@@ -358,7 +357,6 @@ VLC_CONFIGURE_ARGS="\
     --enable-lua \
     --disable-vcd \
     --disable-v4l2 \
-    --enable-dvdnav \
     --enable-bluray \
     --disable-linsys \
     --disable-decklink \
