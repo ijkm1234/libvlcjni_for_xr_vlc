@@ -602,10 +602,12 @@ if [ ${ANDROID_API} -lt "21" ] ; then
     VLC_LDFLAGS="-landroid_support"
 fi
 
-# always use fixups for search.h and tdestroy
-export ac_cv_header_search_h=no
-export ac_cv_func_tdestroy=no
-export ac_cv_func_tfind=no
+if [ ${ANDROID_API} -lt "21" ] ; then
+    # always use fixups for search.h and tdestroy, twalk before API 21
+    export ac_cv_header_search_h=no
+    export ac_cv_func_tdestroy=no
+    export ac_cv_func_tfind=no
+fi
 
 if [ ! -e $VLC_BUILD_DIR/config.h -o "$AVLC_RELEASE" = 1 ]; then
     VLC_CONFIGURE_DEBUG=""
