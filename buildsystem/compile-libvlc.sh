@@ -465,8 +465,6 @@ echo "Building tools"
 avlc_checkfail "buildsystem tools: bootstrap failed"
 make -C $VLC_SRC_DIR/extras/tools $MAKEFLAGS
 avlc_checkfail "buildsystem tools: make failed"
-make -C $VLC_SRC_DIR/extras/tools $MAKEFLAGS .gas || make -C $VLC_SRC_DIR/extras/tools $MAKEFLAGS .buildgas
-avlc_checkfail "buildsystem tools: make failed"
 
 VLC_CONTRIB="$VLC_SRC_DIR/contrib/$TARGET_TUPLE"
 
