@@ -1,7 +1,7 @@
-From 856d01ff50275653be8236ba3fff489fea413c2c Mon Sep 17 00:00:00 2001
-Message-ID: <856d01ff50275653be8236ba3fff489fea413c2c.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 78a3d47c874c14cb73a96b7b666e1e7912944921 Mon Sep 17 00:00:00 2001
+Message-ID: <78a3d47c874c14cb73a96b7b666e1e7912944921.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Thu, 3 Dec 2020 09:56:05 +0100
 Subject: [PATCH 09/20] input: display discoverer/preparsers logs
@@ -12,6 +12,7 @@ Message-Id: <83f8c16874c196ea58d6ad61ace8c2dfddc896d7.1657539375.git.thomas@gllm
 Message-Id: <161dc12879b923e8a5c1ce20bdc3ecd4869195ce.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <f502ac926df1ade98ccb059604e29c2f92c80dd1.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <b0434afe2dcf5c45452fecc231c0c033b7cb239c.1664886558.git.dev.asenat@posteo.net>
+Message-Id: <856d01ff50275653be8236ba3fff489fea413c2c.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  src/input/input.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -30,5 +31,5 @@ index ccfdf2b730..9d057b3b96 100644
      /* Make sure the interaction option is honored */
      if( !var_InheritBool( p_input, "interact" ) )
 -- 
-2.43.0
+2.52.0.windows.1
 

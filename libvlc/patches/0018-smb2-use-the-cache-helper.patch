@@ -1,7 +1,7 @@
-From 636e15fd3015908fb5211dcb2d2c7d5585ba2cc1 Mon Sep 17 00:00:00 2001
-Message-ID: <636e15fd3015908fb5211dcb2d2c7d5585ba2cc1.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From ead4ecba3568db70e52e11e39ff8656df7683bc9 Mon Sep 17 00:00:00 2001
+Message-ID: <ead4ecba3568db70e52e11e39ff8656df7683bc9.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Fri, 21 Jan 2022 17:28:13 +0100
 Subject: [PATCH 18/20] smb2: use the cache helper
@@ -19,13 +19,14 @@ Message-Id: <65c9f30e0c57f51acafba8de8a6286fdd78bc88e.1657539375.git.thomas@gllm
 Message-Id: <d61ef77a05360486a01bfa0c741c1414eb8e867e.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <65659a82020cfb2b5a86beb885ca86bd6d92e8d0.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <a220a8a5d13281ec121c566e43d1aa7587d46a76.1664886558.git.dev.asenat@posteo.net>
+Message-Id: <636e15fd3015908fb5211dcb2d2c7d5585ba2cc1.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  modules/access/Makefile.am |  2 +-
  modules/access/smb2.c      | 56 ++++++++++++++++++++++++++++++++++----
  2 files changed, 52 insertions(+), 6 deletions(-)
 
 diff --git a/modules/access/Makefile.am b/modules/access/Makefile.am
-index 05ac57d247..eb6ba6f3ff 100644
+index 6a38a06e94..a977e61f44 100644
 --- a/modules/access/Makefile.am
 +++ b/modules/access/Makefile.am
 @@ -354,7 +354,7 @@ EXTRA_LTLIBRARIES += libdsm_plugin.la
@@ -38,7 +39,7 @@ index 05ac57d247..eb6ba6f3ff 100644
  if HAVE_DSM
  libsmb2_plugin_la_CFLAGS += $(DSM_CFLAGS) -DHAVE_DSM
 diff --git a/modules/access/smb2.c b/modules/access/smb2.c
-index 784cbb26d2..95fd5ab1de 100644
+index 40348547c4..17e96ca64a 100644
 --- a/modules/access/smb2.c
 +++ b/modules/access/smb2.c
 @@ -94,6 +94,7 @@ netbios_ns_interrupt_unregister(void)
@@ -58,7 +59,7 @@ index 784cbb26d2..95fd5ab1de 100644
  struct access_sys
  {
      struct smb2_context *   smb2;
-@@ -122,6 +125,8 @@ struct access_sys
+@@ -126,6 +129,8 @@ struct access_sys
      vlc_url_t               encoded_url;
      bool                    eof;
      bool                    smb2_connected;
@@ -67,7 +68,7 @@ index 784cbb26d2..95fd5ab1de 100644
  };
  
  struct vlc_smb2_op
-@@ -661,6 +666,16 @@ error:
+@@ -687,6 +692,16 @@ error:
      return op.error_status;
  }
  
@@ -84,7 +85,7 @@ index 784cbb26d2..95fd5ab1de 100644
  static int
  vlc_smb2_connect_open_share(stream_t *access, const char *url,
                              const vlc_credential *credential,
-@@ -696,6 +711,30 @@ vlc_smb2_connect_open_share(stream_t *access, const char *url,
+@@ -722,6 +737,30 @@ vlc_smb2_connect_open_share(stream_t *access, const char *url,
          password = guest_with_valid_passwd ? "" : NULL;
      }
  
@@ -115,7 +116,7 @@ index 784cbb26d2..95fd5ab1de 100644
      smb2_set_security_mode(sys->smb2, SMB2_NEGOTIATE_SIGNING_ENABLED);
      smb2_set_password(sys->smb2, password);
      smb2_set_domain(sys->smb2, domain ? domain : "");
-@@ -722,6 +761,15 @@ vlc_smb2_connect_open_share(stream_t *access, const char *url,
+@@ -748,6 +787,15 @@ vlc_smb2_connect_open_share(stream_t *access, const char *url,
          goto error;
      }
  
@@ -131,7 +132,7 @@ index 784cbb26d2..95fd5ab1de 100644
      smb2_destroy_url(smb2_url);
      return 0;
  
-@@ -963,11 +1011,9 @@ Close(vlc_object_t *p_obj)
+@@ -989,11 +1037,9 @@ Close(vlc_object_t *p_obj)
      assert(sys->smb2_connected);
  
      if (sys->smb2 != NULL)
@@ -147,5 +148,5 @@ index 784cbb26d2..95fd5ab1de 100644
      vlc_UrlClean(&sys->encoded_url);
  }
 -- 
-2.43.0
+2.52.0.windows.1
 

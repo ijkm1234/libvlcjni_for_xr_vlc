@@ -1,7 +1,7 @@
-From abed9aa9ebec757e6f2697fd93ba5a4003c85501 Mon Sep 17 00:00:00 2001
-Message-ID: <abed9aa9ebec757e6f2697fd93ba5a4003c85501.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 8a97cc1641935e787f5088da74e0567bc1958730 Mon Sep 17 00:00:00 2001
+Message-ID: <8a97cc1641935e787f5088da74e0567bc1958730.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Tue, 25 Jan 2022 13:17:02 +0100
 Subject: [PATCH 17/20] dsm: use the cache helper
@@ -19,13 +19,14 @@ Message-Id: <4b9c4bae9f5807eb48010ca97d2d1885c6919a35.1657539375.git.thomas@gllm
 Message-Id: <f5b0e8f7020b199c80d12e98a322e0bddc6279df.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <22f34c09da70fcee7e8ed53892eed4051c13ea3b.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <514a36a6c1ec57ab2f4ca6f4a3dcb0d65b71788f.1664886558.git.dev.asenat@posteo.net>
+Message-Id: <abed9aa9ebec757e6f2697fd93ba5a4003c85501.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  modules/access/Makefile.am  |  2 +-
  modules/access/dsm/access.c | 77 ++++++++++++++++++++++++++++++++++++-
  2 files changed, 76 insertions(+), 3 deletions(-)
 
 diff --git a/modules/access/Makefile.am b/modules/access/Makefile.am
-index 8be84055fa..05ac57d247 100644
+index ee51aa63bd..6a38a06e94 100644
 --- a/modules/access/Makefile.am
 +++ b/modules/access/Makefile.am
 @@ -347,7 +347,7 @@ EXTRA_LTLIBRARIES += libsmb_plugin.la
@@ -178,5 +179,5 @@ index ebacf1c187..9d18aa82e7 100644
  error:
      vlc_credential_clean( &credential );
 -- 
-2.43.0
+2.52.0.windows.1
 

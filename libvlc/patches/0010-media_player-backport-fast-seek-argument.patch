@@ -1,7 +1,7 @@
-From c5e81387db1b48dc6921b5f632886f2372e7f0d4 Mon Sep 17 00:00:00 2001
-Message-ID: <c5e81387db1b48dc6921b5f632886f2372e7f0d4.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From b027ec2b6c5f137d79bf522d18a74d8f299d14fc Mon Sep 17 00:00:00 2001
+Message-ID: <b027ec2b6c5f137d79bf522d18a74d8f299d14fc.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Wed, 4 Aug 2021 13:33:50 +0200
 Subject: [PATCH 10/20] media_player: backport fast seek argument
@@ -13,6 +13,7 @@ Message-Id: <da67b5aaec7d407ac52472c1a5d982d26d60bc5f.1657539375.git.thomas@gllm
 Message-Id: <7f9faa470f5b024cb4cec889f7636e3d92ccbe6e.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <2bb5db161bb592ad8285dc9ebff8d2dd67377879.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <c12502e7927286454abeb35584b32ce6bcc87f51.1664886558.git.dev.asenat@posteo.net>
+Message-Id: <c5e81387db1b48dc6921b5f632886f2372e7f0d4.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  include/vlc/libvlc_media_player.h | 8 ++++++--
  lib/media_player.c                | 6 ++++--
@@ -136,5 +137,5 @@ index 3ce907e2de..242af7072d 100644
      /* Output */
      bool            b_out_pace_control; /* XXX Move it ot es_sout ? */
 -- 
-2.43.0
+2.52.0.windows.1
 

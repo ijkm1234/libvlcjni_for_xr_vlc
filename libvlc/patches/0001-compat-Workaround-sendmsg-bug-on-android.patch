@@ -1,5 +1,5 @@
-From e0f1ebfe2353a812b00011cddea923b56fa79c4a Mon Sep 17 00:00:00 2001
-Message-ID: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From cf35e98806875d7f5e37562ef19672dea509df12 Mon Sep 17 00:00:00 2001
+Message-ID: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Thu, 28 Mar 2019 15:23:48 +0100
 Subject: [PATCH 01/20] compat: Workaround sendmsg bug on android
@@ -17,6 +17,7 @@ Message-Id: <c39c6a221ade0e2440f3a10d57b3ecf33e982311.1657539375.git.thomas@gllm
 Message-Id: <8db168c0fbd0849e5bbc7b852b4cf9e61a5866b9.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <9c6326a62110dc03fa3c8a561747ff73ce2e7fcc.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <1c60b920e01d183ec81d9c862015e336b11b7816.1664886557.git.dev.asenat@posteo.net>
+Message-Id: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  compat/sendmsg.c      | 24 ++++++++++++++++++++++++
  configure.ac          |  3 +++
@@ -59,10 +60,10 @@ index 36470623e3..760b529b84 100644
  #else
  #error sendmsg not implemented on your platform!
 diff --git a/configure.ac b/configure.ac
-index b454198157..8291fae214 100644
+index 05a52c5c16..c3be5c4300 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -406,6 +406,9 @@ AS_IF([test "$SYS" = linux],[
+@@ -458,6 +458,9 @@ AS_IF([test "$SYS" = linux],[
      ],[
        HAVE_ANDROID="1"
        AC_MSG_RESULT([yes])
@@ -90,5 +91,5 @@ index e39ffd0bac..e2d748e3df 100644
  }
  # endif
 -- 
-2.43.0
+2.52.0.windows.1
 

@@ -1,7 +1,7 @@
-From 8268f0e83b9ae45e445a76968bf3626f870917db Mon Sep 17 00:00:00 2001
-Message-ID: <8268f0e83b9ae45e445a76968bf3626f870917db.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 2aff530c70560dc5b666f22f8d90215bcfb234d0 Mon Sep 17 00:00:00 2001
+Message-ID: <2aff530c70560dc5b666f22f8d90215bcfb234d0.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Soomin Lee <bubu@mikan.io>
 Date: Thu, 27 Sep 2018 18:40:39 +0200
 Subject: [PATCH 02/20] libvlc: events: Add callbacks for record
@@ -18,6 +18,7 @@ Message-Id: <b48523e14ac37356323f68fd2be55333b6ddd797.1657539375.git.thomas@gllm
 Message-Id: <1d4e7428cd5859aba066323bc95b39fb1964581d.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <b1c3e4f31f96f6b24562d56520cff263289ed73a.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <29bdf1b5bfdc642babc4f2b34ded657eb3972f50.1664886557.git.dev.asenat@posteo.net>
+Message-Id: <8268f0e83b9ae45e445a76968bf3626f870917db.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  include/vlc/libvlc_events.h |  9 +++++++++
  lib/media_player.c          | 16 ++++++++++++++++
@@ -85,5 +86,5 @@ index fda1091cc8..ab8be9e05c 100644
      return VLC_SUCCESS;
  }
 -- 
-2.43.0
+2.52.0.windows.1
 

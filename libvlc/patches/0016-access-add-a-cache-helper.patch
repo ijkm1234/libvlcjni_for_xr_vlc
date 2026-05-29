@@ -1,7 +1,7 @@
-From 494346eecd8b22c3b6b043f0194e52ba10f28d02 Mon Sep 17 00:00:00 2001
-Message-ID: <494346eecd8b22c3b6b043f0194e52ba10f28d02.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From b281db083b84832e8dba5ad75c1b186d335521c3 Mon Sep 17 00:00:00 2001
+Message-ID: <b281db083b84832e8dba5ad75c1b186d335521c3.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Sun, 10 Jun 2018 20:36:06 +0300
 Subject: [PATCH 16/20] access: add a cache helper
@@ -25,6 +25,7 @@ Message-Id: <b893762cb696a11d5d40812a804c2c03e407ce78.1657539375.git.thomas@gllm
 Message-Id: <351595986ecd49a696e8344ed718635cd0ecfb9e.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <8c2e2b3a7e8cfa49b4dd3eafd39afaec3f7dbeac.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <e948bb42ed492b70571589b70cae173b5ea84ad3.1664886558.git.dev.asenat@posteo.net>
+Message-Id: <494346eecd8b22c3b6b043f0194e52ba10f28d02.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  include/vlc_list.h         | 381 +++++++++++++++++++++++++++++++++++++
  modules/access/Makefile.am |   8 +
@@ -424,7 +425,7 @@ index 0000000000..9ace4d07ce
 +
 +#endif /* VLC_LIST_H */
 diff --git a/modules/access/Makefile.am b/modules/access/Makefile.am
-index f295947233..8be84055fa 100644
+index 7d23797bca..ee51aa63bd 100644
 --- a/modules/access/Makefile.am
 +++ b/modules/access/Makefile.am
 @@ -440,3 +440,11 @@ librist_plugin_la_SOURCES = access/rist.c access/rist.h
@@ -798,7 +799,7 @@ index 0000000000..4c1c136719
 +#warning "can't register access cache"
 +#endif
 diff --git a/src/Makefile.am b/src/Makefile.am
-index db7f93a6bb..dc19a5473c 100644
+index 692a7a5274..c70f69e1ea 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -61,6 +61,7 @@ pluginsinclude_HEADERS = \
@@ -810,5 +811,5 @@ index db7f93a6bb..dc19a5473c 100644
  	../include/vlc_messages.h \
  	../include/vlc_meta.h \
 -- 
-2.43.0
+2.52.0.windows.1
 

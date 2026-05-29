@@ -1,7 +1,7 @@
-From 0b3cdd05de27ba6eb2fd633483d66ca02df84ef6 Mon Sep 17 00:00:00 2001
-Message-Id: <0b3cdd05de27ba6eb2fd633483d66ca02df84ef6.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 36f84ca167f312924e8ac26bf5c73c51b921835e Mon Sep 17 00:00:00 2001
+Message-ID: <36f84ca167f312924e8ac26bf5c73c51b921835e.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Shaleen Jain <shaleen@jain.sh>
 Date: Wed, 27 Jun 2018 17:44:29 +0530
 Subject: [PATCH 20/20] upnp: add and use a callback listener interface
@@ -18,13 +18,14 @@ from any specific module or its members.
 Signed-off-by: Hugo Beauzée-Luyssen <hugo@beauzee.fr>
 (cherry picked from commit 66839225ff9cea419bd9d578278d35eb3c4db800)
 Message-Id: <0b3cdd05de27ba6eb2fd633483d66ca02df84ef6.1738244316.git.dcn.mcnamara@gmail.com>
+Message-Id: <0b3cdd05de27ba6eb2fd633483d66ca02df84ef6.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  modules/services_discovery/upnp.cpp | 133 +++++++++++-----------------
  modules/services_discovery/upnp.hpp |  45 ++++++----
  2 files changed, 82 insertions(+), 96 deletions(-)
 
 diff --git a/modules/services_discovery/upnp.cpp b/modules/services_discovery/upnp.cpp
-index 6b3479357f..bd79585163 100644
+index 5f6e655d43..06d26c6384 100644
 --- a/modules/services_discovery/upnp.cpp
 +++ b/modules/services_discovery/upnp.cpp
 @@ -8,10 +8,6 @@
@@ -223,7 +224,7 @@ index 6b3479357f..bd79585163 100644
      delete sys;
  }
  
-@@ -1736,26 +1729,14 @@ static char *getIpv4ForMulticast()
+@@ -1738,26 +1731,14 @@ static char *getIpv4ForMulticast()
  
  #endif /* _WIN32 */
  
@@ -251,7 +252,7 @@ index 6b3479357f..bd79585163 100644
              return NULL;
          }
  
-@@ -1778,7 +1759,6 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
+@@ -1780,7 +1761,6 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
          {
              msg_Err( p_obj, "Initialization failed: %s", UpnpGetErrorMessage( i_res ) );
              delete instance;
@@ -259,7 +260,7 @@ index 6b3479357f..bd79585163 100644
              return NULL;
          }
  
-@@ -1790,7 +1770,6 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
+@@ -1792,7 +1772,6 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
          {
              msg_Err( p_obj, "Client registration failed: %s", UpnpGetErrorMessage( i_res ) );
              delete instance;
@@ -267,7 +268,7 @@ index 6b3479357f..bd79585163 100644
              return NULL;
          }
  
-@@ -1802,30 +1781,18 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
+@@ -1804,30 +1783,18 @@ UpnpInstanceWrapper *UpnpInstanceWrapper::get(vlc_object_t *p_obj, services_disc
              msg_Err( p_obj, "Failed to set maximum content length: %s",
                      UpnpGetErrorMessage( i_res ));
              delete instance;
@@ -299,7 +300,7 @@ index 6b3479357f..bd79585163 100644
      if (--s_instance->m_refcount == 0)
      {
          p_delete = s_instance;
-@@ -1841,26 +1808,30 @@ UpnpClient_Handle UpnpInstanceWrapper::handle() const
+@@ -1843,26 +1810,30 @@ UpnpClient_Handle UpnpInstanceWrapper::handle() const
  
  int UpnpInstanceWrapper::Callback(Upnp_EventType event_type, UpnpEventPtr p_event, void *p_user_data)
  {
@@ -441,5 +442,5 @@ index b90e3cf009..05e948f0eb 100644
  private:
      void parseNewServer( IXML_Document* doc, const std::string& location );
 -- 
-2.43.0
+2.52.0.windows.1
 

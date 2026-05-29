@@ -1,7 +1,7 @@
-From b2017d602ddfe11c95785b63eecc58825061fd5d Mon Sep 17 00:00:00 2001
-Message-ID: <b2017d602ddfe11c95785b63eecc58825061fd5d.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 17d1f3e65912cccb3ce09cc5b8c4f34c22d0a819 Mon Sep 17 00:00:00 2001
+Message-ID: <17d1f3e65912cccb3ce09cc5b8c4f34c22d0a819.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Pierre Ynard <linkfanel@yahoo.fr>
 Date: Mon, 20 Jul 2020 13:11:34 +0200
 Subject: [PATCH 07/20] stream_ReadLine: increase line length limit
@@ -25,6 +25,7 @@ Message-Id: <79dd5d59744164cb3886e17cd0d6033435a68efd.1657539375.git.thomas@gllm
 Message-Id: <d443d1ad99b3317d6dac28a5b31826282dae0991.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <c37ddd43509aa677187d119d2e69ffbad80fcfb4.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <a2623fac4a87a2ca51256c2210f9c7a0cbbe6194.1664886557.git.dev.asenat@posteo.net>
+Message-Id: <b2017d602ddfe11c95785b63eecc58825061fd5d.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  src/input/stream.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -43,5 +44,5 @@ index b94279b431..6be87f8551 100644
  {
      stream_priv_t *priv = (stream_priv_t *)s;
 -- 
-2.43.0
+2.52.0.windows.1
 

@@ -1,7 +1,7 @@
-From d1c5f3c235f6be4e08d935348abbe4e7a3687eec Mon Sep 17 00:00:00 2001
-Message-ID: <d1c5f3c235f6be4e08d935348abbe4e7a3687eec.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From dbbcdec618f982680a7ed64a7cd1cd8db05ad42c Mon Sep 17 00:00:00 2001
+Message-ID: <dbbcdec618f982680a7ed64a7cd1cd8db05ad42c.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Fri, 29 Mar 2019 10:56:26 +0100
 Subject: [PATCH 03/20] network: tls: Handle errors from older kernels
@@ -28,6 +28,7 @@ Message-Id: <d0cbb307e5e6b471f0d2b164878da05b585ae784.1657539375.git.thomas@gllm
 Message-Id: <21888f28726816a40f3afe1fdd3de7582db472a7.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <d2afce11480ac11c8abde640dbd0bb6fa090a026.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <ab4d75fdd9baee3f38f70e195bbb0bb191edd695.1664886557.git.dev.asenat@posteo.net>
+Message-Id: <d1c5f3c235f6be4e08d935348abbe4e7a3687eec.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  src/network/tls.c | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
@@ -50,5 +51,5 @@ index d464cb315f..08e71e53a8 100644
  #else
      tls->writev = vlc_tls_SocketWrite;
 -- 
-2.43.0
+2.52.0.windows.1
 

@@ -1,7 +1,7 @@
-From f2fafa0d357fe830f6a280a37adaed81b0189d48 Mon Sep 17 00:00:00 2001
-Message-ID: <f2fafa0d357fe830f6a280a37adaed81b0189d48.1738244316.git.dcn.mcnamara@gmail.com>
-In-Reply-To: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
-References: <e0f1ebfe2353a812b00011cddea923b56fa79c4a.1738244316.git.dcn.mcnamara@gmail.com>
+From 832a1068b4f17bb1be1bbfa96e3dad148172732c Mon Sep 17 00:00:00 2001
+Message-ID: <832a1068b4f17bb1be1bbfa96e3dad148172732c.1780042306.git.robux4@ycbcr.xyz>
+In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Thu, 2 Jul 2020 15:05:01 +0200
 Subject: [PATCH 06/20] input: es_out: set video exclusive
@@ -20,12 +20,13 @@ Message-Id: <0a94a6c9aba2dbd2d164a2374ff85375983714d1.1657539375.git.thomas@gllm
 Message-Id: <1e721b29dcfa8e1248b3aca61ff468c574deac30.1662737834.git.dev.asenat@posteo.net>
 Message-Id: <2387d215d9f8989d26859a398ee1fdc028426589.1664884159.git.dev.asenat@posteo.net>
 Message-Id: <fb92a08623d7fd3241b314822c33d0abd2e7eb32.1664886557.git.dev.asenat@posteo.net>
+Message-Id: <f2fafa0d357fe830f6a280a37adaed81b0189d48.1738244316.git.dcn.mcnamara@gmail.com>
 ---
  src/input/es_out.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/input/es_out.c b/src/input/es_out.c
-index b47f6c15dd..a5d15dba56 100644
+index d64ce58ec2..4be24ba849 100644
 --- a/src/input/es_out.c
 +++ b/src/input/es_out.c
 @@ -323,7 +323,7 @@ es_out_t *input_EsOutNew( input_thread_t *p_input, int i_rate )
@@ -38,5 +39,5 @@ index b47f6c15dd..a5d15dba56 100644
      EsOutPropsInit( &p_sys->audio, true, p_input, ES_OUT_ES_POLICY_EXCLUSIVE,
                      "audio-track-id", "audio-track", "audio-language", "audio" );
 -- 
-2.43.0
+2.52.0.windows.1
 
