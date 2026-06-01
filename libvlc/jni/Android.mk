@@ -38,6 +38,7 @@ LOCAL_LDLIBS := \
     -Wl,-Bsymbolic
 LOCAL_CXXFLAGS := -std=c++11
 LOCAL_LDFLAGS += "-Wl,-z,max-page-size=16384"
+LOCAL_LDFLAGS += "-Wl,--gc-sections"
 # This duplicates the libvlc* link flags, but it propagates the dependency
 # on the native build which is what we want overall
 LOCAL_STATIC_LIBRARIES := libvlccore libvlccompat libvlc-native
@@ -57,6 +58,7 @@ LOCAL_SRC_FILES += std_logger.c
 LOCAL_C_INCLUDES := $(VLC_SRC_DIR)/include $(VLC_BUILD_DIR)/include
 LOCAL_CFLAGS := -std=c11
 LOCAL_LDFLAGS += "-Wl,-z,max-page-size=16384"
+LOCAL_LDFLAGS += "-Wl,--gc-sections"
 LOCAL_LDLIBS := -llog
 LOCAL_SHARED_LIBRARIES := libvlc
 
