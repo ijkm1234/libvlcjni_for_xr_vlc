@@ -204,7 +204,7 @@ fi
 # cf. GLOBAL_CFLAGS from ${ANDROID_NDK}/build/core/default-build-commands.mk
 VLC_CFLAGS="${VLC_CFLAGS} -fPIC -fdata-sections -ffunction-sections -funwind-tables \
  -fstack-protector-strong -no-canonical-prefixes"
-VLC_CXXFLAGS="-fexceptions -frtti"
+VLC_CXXFLAGS="-fexceptions -frtti -fdata-sections -ffunction-sections"
 VLC_LDFLAGS="-z max-page-size=16384"
 
 
