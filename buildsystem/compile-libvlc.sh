@@ -116,8 +116,8 @@ fi
 REL=$(grep -o '^Pkg.Revision.*[0-9]*.*' $ANDROID_NDK/source.properties |cut -d " " -f 3 | cut -d "." -f 1)
 
 if [ "${HAVE_64}" = 1 ]; then
-    if [ "$REL" != 27 ] && [ "$REL" != 28 ]; then
-        echo "NDK v27-28 needed for 64-bit, got $REL, cf. https://developer.android.com/ndk/downloads/"
+    if [ "$REL" != 27 ] && [ "$REL" != 28 ] && [ "$REL" != 29 ]; then
+        echo "NDK v27-29 needed for 64-bit, got $REL, cf. https://developer.android.com/ndk/downloads/"
         exit 1
     fi
     ANDROID_API=21
