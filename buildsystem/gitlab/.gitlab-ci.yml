@@ -31,7 +31,7 @@ variables:
         ./buildsystem/compile-libvlc.sh -a ${ARCH} $CONTRIB_FLAGS $CONFIG_ARGS
 
         echo "sdk.dir=$ANDROID_SDK" > local.properties
-        gradle assembleDebug
+        gradle assembleDebug --configuration-cache
 
     rules:
       - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
