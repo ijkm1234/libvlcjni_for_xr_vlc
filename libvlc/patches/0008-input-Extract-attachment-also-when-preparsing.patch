@@ -1,7 +1,7 @@
-From 48056e3c1ec0a668e00669dc6a78739e5cce6b15 Mon Sep 17 00:00:00 2001
-Message-ID: <48056e3c1ec0a668e00669dc6a78739e5cce6b15.1780042306.git.robux4@ycbcr.xyz>
-In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
-References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+From e38747acb9cbf2f01f466a5e5b0f0aaf5bd1130a Mon Sep 17 00:00:00 2001
+Message-ID: <e38747acb9cbf2f01f466a5e5b0f0aaf5bd1130a.1781516499.git.robux4@ycbcr.xyz>
+In-Reply-To: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
+References: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Fri, 29 Nov 2019 15:41:08 +0100
 Subject: [PATCH 08/20] input: Extract attachment also when preparsing
@@ -1846,5 +1846,5 @@ index a15ba0d923..8ce2287e45 100644
 +vlc_input_attachment_Hold
 +vlc_input_attachment_Release
 -- 
-2.52.0.windows.1
+2.51.0
 

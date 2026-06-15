@@ -1,7 +1,7 @@
-From cff578aedf58dccb481a7b38d5485edb6a6e6615 Mon Sep 17 00:00:00 2001
-Message-ID: <cff578aedf58dccb481a7b38d5485edb6a6e6615.1780042306.git.robux4@ycbcr.xyz>
-In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
-References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+From 7577a045794c19973a6d66b5850768a14e49a705 Mon Sep 17 00:00:00 2001
+Message-ID: <7577a045794c19973a6d66b5850768a14e49a705.1781516499.git.robux4@ycbcr.xyz>
+In-Reply-To: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
+References: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
 From: Soomin Lee <bubu@mikan.io>
 Date: Wed, 31 Oct 2018 10:08:55 +0100
 Subject: [PATCH 05/20] libvlc: media_player: Add record method
@@ -90,5 +90,5 @@ index ab8be9e05c..059e7ed993 100644
 +    return VLC_SUCCESS;
 +}
 -- 
-2.52.0.windows.1
+2.51.0
 

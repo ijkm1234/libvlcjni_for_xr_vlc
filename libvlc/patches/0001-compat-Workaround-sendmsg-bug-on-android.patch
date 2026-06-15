@@ -1,5 +1,5 @@
-From cf35e98806875d7f5e37562ef19672dea509df12 Mon Sep 17 00:00:00 2001
-Message-ID: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+From 7e474a1810b2e5d0c838875f8a64a272995760f2 Mon Sep 17 00:00:00 2001
+Message-ID: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
 From: =?UTF-8?q?Hugo=20Beauz=C3=A9e-Luyssen?= <hugo@beauzee.fr>
 Date: Thu, 28 Mar 2019 15:23:48 +0100
 Subject: [PATCH 01/20] compat: Workaround sendmsg bug on android
@@ -60,7 +60,7 @@ index 36470623e3..760b529b84 100644
  #else
  #error sendmsg not implemented on your platform!
 diff --git a/configure.ac b/configure.ac
-index 05a52c5c16..c3be5c4300 100644
+index 5f040f7697..93e3603a38 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -458,6 +458,9 @@ AS_IF([test "$SYS" = linux],[
@@ -74,10 +74,10 @@ index 05a52c5c16..c3be5c4300 100644
        AC_MSG_RESULT([no])
      ])
 diff --git a/include/vlc_network.h b/include/vlc_network.h
-index e39ffd0bac..e2d748e3df 100644
+index e04124e815..758d92f756 100644
 --- a/include/vlc_network.h
 +++ b/include/vlc_network.h
-@@ -306,6 +306,12 @@ static inline void net_SetPort (struct sockaddr *addr, uint16_t port)
+@@ -305,6 +305,12 @@ static inline void net_SetPort (struct sockaddr *addr, uint16_t port)
  
  VLC_API char *vlc_getProxyUrl(const char *);
  
@@ -91,5 +91,5 @@ index e39ffd0bac..e2d748e3df 100644
  }
  # endif
 -- 
-2.52.0.windows.1
+2.51.0
 

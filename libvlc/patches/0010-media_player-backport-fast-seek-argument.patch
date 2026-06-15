@@ -1,7 +1,7 @@
-From b027ec2b6c5f137d79bf522d18a74d8f299d14fc Mon Sep 17 00:00:00 2001
-Message-ID: <b027ec2b6c5f137d79bf522d18a74d8f299d14fc.1780042306.git.robux4@ycbcr.xyz>
-In-Reply-To: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
-References: <cf35e98806875d7f5e37562ef19672dea509df12.1780042306.git.robux4@ycbcr.xyz>
+From 67590aa76ba593c3f47aa0ddbc8473bf3a97cef9 Mon Sep 17 00:00:00 2001
+Message-ID: <67590aa76ba593c3f47aa0ddbc8473bf3a97cef9.1781516499.git.robux4@ycbcr.xyz>
+In-Reply-To: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
+References: <7e474a1810b2e5d0c838875f8a64a272995760f2.1781516499.git.robux4@ycbcr.xyz>
 From: Thomas Guillem <thomas@gllm.fr>
 Date: Wed, 4 Aug 2021 13:33:50 +0200
 Subject: [PATCH 10/20] media_player: backport fast seek argument
@@ -137,5 +137,5 @@ index 3ce907e2de..242af7072d 100644
      /* Output */
      bool            b_out_pace_control; /* XXX Move it ot es_sout ? */
 -- 
-2.52.0.windows.1
+2.51.0
 
