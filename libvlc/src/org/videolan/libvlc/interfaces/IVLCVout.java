@@ -2,6 +2,7 @@
  * public class IVLCVout.java
  *****************************************************************************
  * Copyright © 2015 VLC authors, VideoLAN and VideoLabs
+ * Modified for XRVLC by XRVLC contributors on 2026-08-16.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
