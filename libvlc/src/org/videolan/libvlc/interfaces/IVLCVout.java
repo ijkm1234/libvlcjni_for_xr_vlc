@@ -23,6 +23,7 @@ package org.videolan.libvlc.interfaces;
 import android.graphics.SurfaceTexture;
 import android.os.Build;
 import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -125,6 +126,13 @@ public interface IVLCVout {
      */
     @MainThread
     void setSubtitlesSurface(Surface subtitlesSurface, SurfaceHolder surfaceHolder);
+
+    /**
+     * Replace or clear the subtitles surface while keeping the video surface
+     * attached. Passing null clears only the subtitles surface.
+     */
+    @MainThread
+    void replaceSubtitlesSurface(@Nullable Surface subtitlesSurface, @Nullable SurfaceHolder surfaceHolder);
 
     /**
      * Set a SurfaceTexture used for subtitles out.

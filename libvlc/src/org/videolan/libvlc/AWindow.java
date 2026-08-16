@@ -24,7 +24,9 @@ import android.graphics.SurfaceTexture;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -38,6 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SuppressWarnings("WeakerAccess")
 public class AWindow implements IVLCVout {
     private static final String TAG = "AWindow";
+    private static final String SURFACE_DEBUG_TAG = "XR_SURFACE_DEBUG";
 
     private static final int ID_VIDEO = 0;
     private static final int ID_SUBTITLES = 1;
@@ -48,6 +51,27 @@ public class AWindow implements IVLCVout {
         void onSurfacesCreated(AWindow vout);
         @MainThread
         void onSurfacesDestroyed(AWindow vout);
+    }
+
+    private static void surfaceDebug(String message) {
+        Log.e(SURFACE_DEBUG_TAG, "awindow " + message);
+    }
+
+    private static String idName(int id) {
+        switch (id) {
+            case ID_VIDEO:
+                return "video";
+            case ID_SUBTITLES:
+                return "subtitles";
+            default:
+                return "unknown(" + id + ")";
+        }
+    }
+
+    private static String describeSurface(String label, Surface surface) {
+        return label + "=" + surface
+                + " " + label + "Valid=" + (surface != null ? surface.isValid() : "null")
+                + " " + label + "Identity=" + (surface != null ? System.identityHashCode(surface) : "null");
     }
 
     private class SurfaceHelper {
@@ -80,10 +104,22 @@ public class AWindow implements IVLCVout {
         }
 
         private void setSurface(Surface surface) {
+            surfaceDebug("helper_set_surface enter id=" + idName(mId)
+                    + " state=" + mSurfacesState.get() + " "
+                    + describeSurface("surface", surface)
+                    + " nativeBefore=" + getNativeSurface(mId));
             if (surface.isValid() && getNativeSurface(mId) == null) {
                 mSurface = surface;
                 setNativeSurface(mId, mSurface);
-                onSurfaceCreated();
+                surfaceDebug("helper_set_surface native_set id=" + idName(mId)
+                        + " nativeAfter=" + getNativeSurface(mId)
+                        + " state=" + mSurfacesState.get());
+                if (mSurfacesState.get() == SURFACE_STATE_ATTACHED)
+                    onSurfaceCreated();
+            } else {
+                surfaceDebug("helper_set_surface skipped id=" + idName(mId)
+                        + " valid=" + surface.isValid()
+                        + " nativeExisting=" + getNativeSurface(mId));
             }
         }
 
@@ -105,12 +141,20 @@ public class AWindow implements IVLCVout {
         }
 
         private void attachSurface() {
+            surfaceDebug("helper_attach_surface id=" + idName(mId)
+                    + " holderNull=" + (mSurfaceHolder == null) + " "
+                    + describeSurface("surface", mSurface));
             if (mSurfaceHolder != null)
                 mSurfaceHolder.addCallback(mSurfaceHolderCallback);
             setSurface(mSurface);
         }
 
         public void attach() {
+            surfaceDebug("helper_attach id=" + idName(mId)
+                    + " hasSurfaceView=" + (mSurfaceView != null)
+                    + " hasTextureView=" + (mTextureView != null) + " "
+                    + describeSurface("surface", mSurface)
+                    + " state=" + mSurfacesState.get());
             if (mSurfaceView != null) {
                 attachSurfaceView();
             } else if (mTextureView != null) {
@@ -127,6 +171,10 @@ public class AWindow implements IVLCVout {
         }
 
         public void release() {
+            surfaceDebug("helper_release id=" + idName(mId)
+                    + " nativeBefore=" + getNativeSurface(mId) + " "
+                    + describeSurface("surface", mSurface)
+                    + " state=" + mSurfacesState.get());
             mSurface = null;
             setNativeSurface(mId, null);
             if (mSurfaceHolder != null)
@@ -135,6 +183,8 @@ public class AWindow implements IVLCVout {
         }
 
         public boolean isReady() {
+            if (mSurfaceView == null && mTextureView == null)
+                return getNativeSurface(mId) != null;
             return mSurfaceView == null || mSurface != null;
         }
 
@@ -257,6 +307,11 @@ public class AWindow implements IVLCVout {
     }
 
     private void setSurface(int id, Surface surface, SurfaceHolder surfaceHolder) {
+        surfaceDebug("set_surface enter id=" + idName(id)
+                + " state=" + mSurfacesState.get() + " holderNull=" + (surfaceHolder == null) + " "
+                + describeSurface("surface", surface)
+                + " existingHelper=" + mSurfaceHelpers[id]
+                + " nativeBefore=" + getNativeSurface(id));
         ensureInitState();
         if (!surface.isValid() && surfaceHolder == null)
             throw new IllegalStateException("surface is not attached and holder is null");
@@ -265,6 +320,9 @@ public class AWindow implements IVLCVout {
             surfaceHelper.release();
 
         mSurfaceHelpers[id] = new SurfaceHelper(id, surface, surfaceHolder);
+        surfaceDebug("set_surface stored_helper id=" + idName(id)
+                + " helper=" + mSurfaceHelpers[id]
+                + " state=" + mSurfacesState.get());
     }
 
     @Override
@@ -281,6 +339,8 @@ public class AWindow implements IVLCVout {
 
     @Override
     public void setVideoSurface(Surface videoSurface, SurfaceHolder surfaceHolder) {
+        surfaceDebug("set_video_surface api " + describeSurface("video", videoSurface)
+                + " holderNull=" + (surfaceHolder == null));
         setSurface(ID_VIDEO, videoSurface, surfaceHolder);
     }
 
@@ -303,7 +363,61 @@ public class AWindow implements IVLCVout {
 
     @Override
     public void setSubtitlesSurface(Surface subtitlesSurface, SurfaceHolder surfaceHolder) {
+        surfaceDebug("set_subtitles_surface api " + describeSurface("subtitle", subtitlesSurface)
+                + " holderNull=" + (surfaceHolder == null));
         setSurface(ID_SUBTITLES, subtitlesSurface, surfaceHolder);
+    }
+
+    @Override
+    @MainThread
+    public void replaceSubtitlesSurface(@Nullable Surface subtitlesSurface,
+                                        @Nullable SurfaceHolder surfaceHolder) {
+        surfaceDebug("replace_subtitles_surface enter state=" + mSurfacesState.get()
+                + " holderNull=" + (surfaceHolder == null) + " "
+                + describeSurface("subtitle", subtitlesSurface)
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitleBefore=" + getNativeSurface(ID_SUBTITLES));
+        if (subtitlesSurface != null && !subtitlesSurface.isValid() && surfaceHolder == null)
+            throw new IllegalStateException("subtitle surface is not attached and holder is null");
+
+        final SurfaceHelper surfaceHelper = mSurfaceHelpers[ID_SUBTITLES];
+        if (surfaceHelper != null)
+            surfaceHelper.release();
+        mSurfaceHelpers[ID_SUBTITLES] = null;
+
+        if (subtitlesSurface == null) {
+            Log.e(TAG, "XR_SUB_SURFACE replaceSubtitlesSurface cleared subtitles only state="
+                    + mSurfacesState.get() + " video=" + getNativeSurface(ID_VIDEO));
+            surfaceDebug("replace_subtitles_surface cleared state=" + mSurfacesState.get()
+                    + " nativeVideo=" + getNativeSurface(ID_VIDEO));
+            return;
+        }
+
+        final SurfaceHelper subtitlesHelper = new SurfaceHelper(ID_SUBTITLES,
+                subtitlesSurface, surfaceHolder);
+        mSurfaceHelpers[ID_SUBTITLES] = subtitlesHelper;
+
+        final int state = mSurfacesState.get();
+        if (state != SURFACE_STATE_INIT) {
+            subtitlesHelper.attach();
+            if (state == SURFACE_STATE_READY && subtitlesHelper.isReady()
+                    && mSurfaceHelpers[ID_VIDEO] != null
+                    && mSurfaceHelpers[ID_VIDEO].isReady()) {
+                for (IVLCVout.Callback cb : mIVLCVoutCallbacks)
+                    cb.onSurfacesCreated(this);
+                if (mSurfaceCallback != null)
+                    mSurfaceCallback.onSurfacesCreated(this);
+            }
+        }
+
+        Log.e(TAG, "XR_SUB_SURFACE replaceSubtitlesSurface updated subtitles only surface="
+                + subtitlesSurface + " valid=" + subtitlesSurface.isValid()
+                + " identity=" + System.identityHashCode(subtitlesSurface)
+                + " state=" + mSurfacesState.get()
+                + " video=" + getNativeSurface(ID_VIDEO));
+        surfaceDebug("replace_subtitles_surface updated state=" + mSurfacesState.get()
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES));
     }
 
     @Override
@@ -314,6 +428,12 @@ public class AWindow implements IVLCVout {
     @Override
     @MainThread
     public void attachViews(OnNewVideoLayoutListener onNewVideoLayoutListener) {
+        surfaceDebug("attach_views enter state=" + mSurfacesState.get()
+                + " videoHelper=" + mSurfaceHelpers[ID_VIDEO]
+                + " subtitleHelper=" + mSurfaceHelpers[ID_SUBTITLES]
+                + " nativeVideoBefore=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitleBefore=" + getNativeSurface(ID_SUBTITLES)
+                + " listenerNull=" + (onNewVideoLayoutListener == null));
         if (mSurfacesState.get() != SURFACE_STATE_INIT || mSurfaceHelpers[ID_VIDEO] == null)
             throw new IllegalStateException("already attached or video view not configured");
         mSurfacesState.set(SURFACE_STATE_ATTACHED);
@@ -327,6 +447,9 @@ public class AWindow implements IVLCVout {
             if (surfaceHelper != null)
                 surfaceHelper.attach();
         }
+        surfaceDebug("attach_views complete state=" + mSurfacesState.get()
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES));
     }
 
     @Override
@@ -338,6 +461,9 @@ public class AWindow implements IVLCVout {
     @Override
     @MainThread
     public void detachViews() {
+        surfaceDebug("detach_views enter state=" + mSurfacesState.get()
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES));
         if (mSurfacesState.get() == SURFACE_STATE_INIT)
             return;
 
@@ -359,6 +485,9 @@ public class AWindow implements IVLCVout {
         if (mSurfaceCallback != null)
             mSurfaceCallback.onSurfacesDestroyed(this);
         mSurfaceTextureThread.release();
+        surfaceDebug("detach_views complete state=" + mSurfacesState.get()
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES));
     }
 
     @Override
@@ -369,6 +498,11 @@ public class AWindow implements IVLCVout {
 
     @MainThread
     private void onSurfaceCreated() {
+        surfaceDebug("on_surface_created enter state=" + mSurfacesState.get()
+                + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES)
+                + " videoHelper=" + mSurfaceHelpers[ID_VIDEO]
+                + " subtitleHelper=" + mSurfaceHelpers[ID_SUBTITLES]);
         if (mSurfacesState.get() != SURFACE_STATE_ATTACHED)
             throw new IllegalArgumentException("invalid state");
 
@@ -379,10 +513,17 @@ public class AWindow implements IVLCVout {
 
         if (videoHelper.isReady() && (subtitlesHelper == null || subtitlesHelper.isReady())) {
             mSurfacesState.set(SURFACE_STATE_READY);
+            surfaceDebug("on_surface_created ready state=" + mSurfacesState.get()
+                    + " nativeVideo=" + getNativeSurface(ID_VIDEO)
+                    + " nativeSubtitle=" + getNativeSurface(ID_SUBTITLES)
+                    + " callbacks=" + mIVLCVoutCallbacks.size());
             for (IVLCVout.Callback cb : mIVLCVoutCallbacks)
                 cb.onSurfacesCreated(this);
             if (mSurfaceCallback != null)
                 mSurfaceCallback.onSurfacesCreated(this);
+        } else {
+            surfaceDebug("on_surface_created waiting videoReady=" + videoHelper.isReady()
+                    + " subtitleReady=" + (subtitlesHelper == null || subtitlesHelper.isReady()));
         }
     }
 
@@ -476,7 +617,10 @@ public class AWindow implements IVLCVout {
      */
     @SuppressWarnings("unused") /* used by JNI */
     private Surface getVideoSurface() {
-        return getNativeSurface(ID_VIDEO);
+        final Surface surface = getNativeSurface(ID_VIDEO);
+        surfaceDebug("get_video_surface " + describeSurface("video", surface)
+                + " state=" + mSurfacesState.get());
+        return surface;
     }
 
     /**
@@ -486,7 +630,12 @@ public class AWindow implements IVLCVout {
      */
     @SuppressWarnings("unused") /* used by JNI */
     private Surface getSubtitlesSurface() {
-        return getNativeSurface(ID_SUBTITLES);
+        final Surface surface = getNativeSurface(ID_SUBTITLES);
+        Log.e(TAG, "XR_SUB_SURFACE AWindow.getSubtitlesSurface surface=" + surface
+                + " valid=" + (surface != null ? surface.isValid() : "null")
+                + " identity=" + (surface != null ? System.identityHashCode(surface) : "null")
+                + " state=" + mSurfacesState.get());
+        return surface;
 
     }
 
@@ -559,10 +708,18 @@ public class AWindow implements IVLCVout {
     @SuppressWarnings("unused") /* used by JNI */
     private void setVideoLayout(final int width, final int height, final int visibleWidth,
                                 final int visibleHeight, final int sarNum, final int sarDen) {
+        surfaceDebug("set_video_layout posted raw=" + width + "x" + height
+                + " visible=" + visibleWidth + "x" + visibleHeight
+                + " listenerPresent=" + (mOnNewVideoLayoutListener != null)
+                + " state=" + mSurfacesState.get());
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 /* No need to synchronize here, mOnNewVideoLayoutListener is only set from MainThread */
+                surfaceDebug("set_video_layout deliver raw=" + width + "x" + height
+                        + " visible=" + visibleWidth + "x" + visibleHeight
+                        + " listenerPresent=" + (mOnNewVideoLayoutListener != null)
+                        + " state=" + mSurfacesState.get());
                 if (mOnNewVideoLayoutListener != null)
                     mOnNewVideoLayoutListener.onNewVideoLayout(AWindow.this, width, height,
                             visibleWidth, visibleHeight, sarNum, sarDen);

@@ -1227,6 +1227,14 @@ public class MediaPlayer extends VLCObject<MediaPlayer.Event> {
         return nativeSetSpuDelay(delay);
     }
 
+    public boolean setXrSubtitleStackOutside(boolean enabled) {
+        return nativeSetXrSubtitleStackOutside(enabled);
+    }
+
+    public boolean setXrSubtitleSurfaceEnabled(boolean enabled) {
+        return nativeSetXrSubtitleSurfaceEnabled(enabled);
+    }
+
     /**
      * Apply new equalizer settings to a media player.
      *
@@ -1319,6 +1327,17 @@ public class MediaPlayer extends VLCObject<MediaPlayer.Event> {
      * Returns true if any media is playing
      */
     public native boolean isPlaying();
+
+    /**
+     * Returns the latest video-output count reported by libVLC.
+     *
+     * This is intentionally a read-only view of the count maintained by the
+     * native player events; callers must not infer output existence from
+     * attached Java surfaces.
+     */
+    public synchronized int getVoutCount() {
+        return mVoutCount;
+    }
 
     /**
      * Returns true if any media is seekable
@@ -1505,6 +1524,8 @@ public class MediaPlayer extends VLCObject<MediaPlayer.Event> {
     private native boolean nativeSetSpuTrack(int index);
     private native long nativeGetSpuDelay();
     private native boolean nativeSetSpuDelay(long delay);
+    private native boolean nativeSetXrSubtitleStackOutside(boolean enabled);
+    private native boolean nativeSetXrSubtitleSurfaceEnabled(boolean enabled);
     private native boolean nativeAddSlave(int type, String location, boolean select);
     private native boolean nativeRecord(String directory);
     private native boolean nativeSetEqualizer(Equalizer equalizer);
