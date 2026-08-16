@@ -1005,6 +1005,34 @@ Java_org_videolan_libvlc_MediaPlayer_nativeSetSpuDelay(JNIEnv *env,
     return libvlc_video_set_spu_delay(p_obj->u.p_mp, delay) == 0 ? true : false;
 }
 
+jboolean
+Java_org_videolan_libvlc_MediaPlayer_nativeSetXrSubtitleStackOutside(JNIEnv *env,
+                                                                     jobject thiz,
+                                                                     jboolean enabled)
+{
+    vlcjni_object *p_obj = VLCJniObject_getInstance(env, thiz);
+
+    if (!p_obj)
+       return false;
+
+    libvlc_video_set_xr_subtitle_stack_outside(p_obj->u.p_mp, enabled);
+    return true;
+}
+
+jboolean
+Java_org_videolan_libvlc_MediaPlayer_nativeSetXrSubtitleSurfaceEnabled(JNIEnv *env,
+                                                                       jobject thiz,
+                                                                       jboolean enabled)
+{
+    vlcjni_object *p_obj = VLCJniObject_getInstance(env, thiz);
+
+    if (!p_obj)
+       return false;
+
+    libvlc_video_set_xr_subtitle_surface_enabled(p_obj->u.p_mp, enabled);
+    return true;
+}
+
 float
 Java_org_videolan_libvlc_MediaPlayer_nativeGetScale(JNIEnv *env, jobject thiz)
 {
@@ -1332,5 +1360,3 @@ Java_org_videolan_libvlc_MediaPlayer_nativeGetTeletext(JNIEnv *env,
 
     return libvlc_video_get_teletext(p_obj->u.p_mp);
 }
-
-
