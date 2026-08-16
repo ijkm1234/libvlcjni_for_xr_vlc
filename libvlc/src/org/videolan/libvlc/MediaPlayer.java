@@ -2,6 +2,7 @@
  * MediaPlayer.java
  *****************************************************************************
  * Copyright © 2015 VLC authors and VideoLAN
+ * Modified for XRVLC by XRVLC contributors on 2026-08-16.
  *
  * Authors  Jean-Baptiste Kempf <jb@videolan.org>
  *

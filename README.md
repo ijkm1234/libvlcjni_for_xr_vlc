@@ -1,8 +1,15 @@
-# libvlcjni
+# libvlcjni — XRVLC fork
 
 [![Join the chat at https://discord.gg/3h3K3JF](https://img.shields.io/discord/716939396464508958?label=discord)](https://discord.gg/3h3K3JF)
 
-This is the official **LibVLC** bindings for Android.
+This repository is an independent modified fork of the VideoLAN **LibVLC**
+bindings for Android. It is maintained for XRVLC and is not an official
+VideoLAN distribution. It is not affiliated with or endorsed by VideoLAN.
+
+The upstream source, base revision, integrated VLC revision, and modified-file
+inventory are documented in [UPSTREAM.md](UPSTREAM.md).
+
+This documentation was modified for XRVLC on 2026-08-16.
 
 - [Project Structure](#project-structure)
 - [LibVLC](#libvlc)
@@ -39,14 +46,18 @@ And more.
 
 ![LibVLC stack](https://images.videolan.org/images/libvlc_stack.png)
 
-You can use our LibVLC module to power your own Android media player.
-Download the `.aar` directly from [Maven](https://search.maven.org/artifact/org.videolan.android/libvlc-all) or build from source.
+The upstream LibVLC module can be used to power Android media players. The
+XRVLC variant in this repository is built from source.
 
-Have a look at our [sample codes](https://code.videolan.org/videolan/libvlc-android-samples).
+See the upstream
+[LibVLC Android samples](https://code.videolan.org/videolan/libvlc-android-samples).
 
 ## License
 
-libvlcjni is licensed under [LGPLv2](libvlc/COPYING.LIB).
+The libvlcjni library code is licensed under
+[LGPL-2.1-or-later](libvlc/COPYING.LIB), except where an individual file states
+otherwise. Existing copyright and license notices remain in effect; XRVLC
+modifications follow the license of the files being modified.
 
 ## Build
 
@@ -57,7 +68,9 @@ It should work with Windows 10, and macOS, but there is no official support for 
 
 #### Setup
 
-Check our [AndroidCompile wiki page](https://wiki.videolan.org/AndroidCompile/), especially for build dependencies.
+See the upstream
+[AndroidCompile wiki page](https://wiki.videolan.org/AndroidCompile/), especially
+for build dependencies.
 
 Here are the essential points:
 
@@ -87,27 +100,21 @@ You can do a library release build with `-r` argument
 
 ## Contribute
 
-libvlcjni is a libre and open source project, we welcome all contributions.
-
-Just respect our [Code of Conduct](https://wiki.videolan.org/CoC/).
+libvlcjni and this XRVLC fork are libre and open source software.
 
 ### Pull requests
 
-Pull requests must be proposed on our [gitlab server](https://code.videolan.org/videolan/libvlcjni/).
-
-So you must create an account, fork libvlcjni project, and open your merge requests from it.
+XRVLC-specific changes should be proposed to this repository. Changes intended
+for upstream libvlcjni should be proposed to the
+[VideoLAN repository](https://code.videolan.org/videolan/libvlcjni/).
 
 ## Issues and feature requests
 
-The libvlcjni bugtracker is hosted on [VideoLAN gitlab](https://code.videolan.org/videolan/libvlcjni/issues)  
-Please look for existing issues and provide as much useful details as you can (e.g. vlc app version, device and Android version).
-
-A template is provided, please use it!
-
-Issues without relevant information will be ignored, we cannot help in this case.
+Report XRVLC-specific issues in this repository. The
+[VideoLAN libvlcjni bugtracker](https://code.videolan.org/videolan/libvlcjni/issues)
+is for the upstream project.
 
 ## Support
 
-- bugtracker: https://code.videolan.org/videolan/libvlcjni/issues
-- IRC: *#videolan* channel on [freenode](http://freenode.net/)
-- VideoLAN forum: https://forum.videolan.org
+- XRVLC source and issues: https://github.com/ijkm1234/libvlcjni_for_xr_vlc
+- Upstream source: https://code.videolan.org/videolan/libvlcjni
