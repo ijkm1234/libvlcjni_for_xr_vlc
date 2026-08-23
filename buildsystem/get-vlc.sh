@@ -3,7 +3,6 @@
 set -e
 
 LIBVLCJNI_SRC_DIR="$(cd "$(dirname "$0")"; pwd -P)/.."
-PATCHES_DIR=$LIBVLCJNI_SRC_DIR/libvlc/patches
 
 #############
 # FUNCTIONS #
@@ -22,9 +21,13 @@ fail()
 
 check_vlc_tree()
 {
+    current_revision=$(git rev-parse HEAD)
+    if [ "$current_revision" != "$VLC_TESTED_HASH" ]; then
+        fail "Error: Your VLC revision is ${current_revision}, expected ${VLC_TESTED_HASH} (${VLC_XR_VERSION})."
+    fi
     current_tree=$(git rev-parse 'HEAD^{tree}')
     if [ "$current_tree" != "$VLC_TESTED_TREE" ]; then
-        fail "Error: Your integrated vlc tree is ${current_tree}, expected ${VLC_TESTED_TREE}."
+        fail "Error: Your VLC tree is ${current_tree}, expected ${VLC_TESTED_TREE}."
     fi
     if ! git diff --quiet || ! git diff --cached --quiet; then
         fail "Error: Your vlc checkout contains tracked local changes."
@@ -33,41 +36,28 @@ check_vlc_tree()
 
 prepare_vlc_source()
 {
-    git cat-file -e "${VLC_BASE_HASH}^{commit}" 2> /dev/null || \
-        fail "Error: VLC base commit ${VLC_BASE_HASH} is missing."
-    if ! git cat-file -e "${VLC_XR_VERSION}^{commit}" 2> /dev/null; then
+    resolved_version=$(git rev-parse "${VLC_XR_VERSION}^{commit}" 2> /dev/null || true)
+    if [ "$resolved_version" != "$VLC_TESTED_HASH" ]; then
         diagnostic "VLC sources: fetching release tag ${VLC_XR_VERSION}"
-        git fetch "$VLC_REPOSITORY" \
-            "refs/tags/${VLC_XR_VERSION}:refs/tags/${VLC_XR_VERSION}" || \
+        git fetch --force "$VLC_REPOSITORY" \
+            "+refs/tags/${VLC_XR_VERSION}:refs/tags/${VLC_XR_VERSION}" || \
             fail "VLC sources: cannot fetch release tag ${VLC_XR_VERSION}"
     fi
-    git cat-file -e "${VLC_XR_VERSION}^{commit}" 2> /dev/null || \
-        fail "Error: VLC XR release tag ${VLC_XR_VERSION} is missing."
+    resolved_version=$(git rev-parse "${VLC_XR_VERSION}^{commit}" 2> /dev/null || true)
+    [ "$resolved_version" = "$VLC_TESTED_HASH" ] || \
+        fail "Error: VLC XR release tag ${VLC_XR_VERSION} resolves to ${resolved_version}, expected ${VLC_TESTED_HASH}."
 
     git am --abort > /dev/null 2>&1 || true
     git cherry-pick --abort > /dev/null 2>&1 || true
-    git checkout --detach "${VLC_BASE_HASH}"
-    git reset --hard "${VLC_BASE_HASH}"
-
-    diagnostic "VLC sources: applying libvlcjni upstream patches"
-    git am --message-id "$PATCHES_DIR"/*.patch || fail "VLC sources: cannot apply libvlcjni patches"
-
-    diagnostic "VLC sources: applying XR commits"
-    # Release tags may point to a GitHub merge commit. Apply the tagged XR
-    # commits but skip the merge wrapper, which would duplicate their changes.
-    xr_commits=$(git rev-list --reverse --no-merges \
-        "${VLC_BASE_HASH}..${VLC_XR_VERSION}")
-    [ -n "$xr_commits" ] || fail "VLC sources: XR commit range is empty"
-    for xr_commit in $xr_commits; do
-        git cherry-pick "$xr_commit" || fail "VLC sources: cannot apply XR commit ${xr_commit}"
-    done
+    git checkout --detach "${VLC_TESTED_HASH}"
+    git reset --hard "${VLC_TESTED_HASH}"
 
     check_vlc_tree
 }
 
-VLC_BASE_HASH=3458be162f476ff64b639140b684efa1143ddeea
 VLC_XR_VERSION=v0.0.1
-VLC_TESTED_TREE=493d3734ff87e49ee2dc95d573235e81b0ab3614
+VLC_TESTED_HASH=d65ec2d64eb9d298cfe630ab915369ad0b253503
+VLC_TESTED_TREE=eab77929f09ed7daf24d6b8a74e0e5c5eab4d1d6
 VLC_REPOSITORY=https://github.com/ijkm1234/vlc_for_xr_vlc.git
 
 RESET=0
@@ -78,8 +68,8 @@ while [ $# -gt 0 ]; do
             echo "Use -b to bypass libvlc source checks (vlc custom sources)"
             echo "  --vlcgit <vlc_git_url> (default $VLC_REPOSITORY)"
             echo "  --vlcversion <vlc_xr_release_tag> (default $VLC_XR_VERSION)"
-            echo "  --vlcbasehash <vlc_base_git_hash> (default $VLC_BASE_HASH)"
-            echo "  --vlctree <integrated_tree_hash> (default $VLC_TESTED_TREE)"
+            echo "  --vlchash <vlc_release_commit> (default $VLC_TESTED_HASH)"
+            echo "  --vlctree <vlc_release_tree> (default $VLC_TESTED_TREE)"
             exit 0
             ;;
         --reset)
@@ -93,8 +83,8 @@ while [ $# -gt 0 ]; do
             VLC_XR_VERSION=$2
             shift
             ;;
-        --vlcbasehash)
-            VLC_BASE_HASH=$2
+        --vlchash)
+            VLC_TESTED_HASH=$2
             shift
             ;;
         --vlctree)
