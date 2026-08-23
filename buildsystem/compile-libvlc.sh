@@ -183,6 +183,11 @@ fi
 CROSS_CLANG=${NDK_TOOLCHAIN_PATH}/${CLANG_PREFIX}${ANDROID_API}-clang
 
 export PATH="${NDK_TOOLCHAIN_PATH}:${PATH}"
+export AR="${CROSS_TOOLS}ar"
+export AS="${CROSS_TOOLS}as"
+export NM="${CROSS_TOOLS}nm"
+export RANLIB="${CROSS_TOOLS}ranlib"
+export STRIP="${CROSS_TOOLS}strip"
 NDK_BUILD=$ANDROID_NDK/ndk-build
 if [ ! -z "$MSYSTEM_PREFIX" ] ; then
     # The make.exe and awk.exe from the toolchain don't work in msys
