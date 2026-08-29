@@ -181,10 +181,15 @@ else
 CROSS_TOOLS=${NDK_TOOLCHAIN_PATH}/llvm-
 fi
 CROSS_CLANG=${NDK_TOOLCHAIN_PATH}/${CLANG_PREFIX}${ANDROID_API}-clang
+if [ $REL -lt "27" ]; then
+CROSS_AS=${CROSS_TOOLS}as
+else
+CROSS_AS=${CROSS_CLANG}
+fi
 
 export PATH="${NDK_TOOLCHAIN_PATH}:${PATH}"
 export AR="${CROSS_TOOLS}ar"
-export AS="${CROSS_TOOLS}as"
+export AS="${CROSS_AS}"
 export NM="${CROSS_TOOLS}nm"
 export RANLIB="${CROSS_TOOLS}ranlib"
 export STRIP="${CROSS_TOOLS}strip"
@@ -556,7 +561,7 @@ else
     echo "CC=${CROSS_CLANG}" >> $VLC_CONTRIB_DIR/config.mak
     echo "CXX=${CROSS_CLANG}++" >> $VLC_CONTRIB_DIR/config.mak
     echo "AR=${CROSS_TOOLS}ar" >> $VLC_CONTRIB_DIR/config.mak
-    echo "AS=${CROSS_TOOLS}as" >> $VLC_CONTRIB_DIR/config.mak
+    echo "AS=${CROSS_AS}" >> $VLC_CONTRIB_DIR/config.mak
     echo "RANLIB=${CROSS_TOOLS}ranlib" >> $VLC_CONTRIB_DIR/config.mak
     echo "LD=${CROSS_TOOLS}ld" >> $VLC_CONTRIB_DIR/config.mak
 
