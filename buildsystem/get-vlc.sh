@@ -56,8 +56,8 @@ prepare_vlc_source()
 }
 
 VLC_XR_VERSION=v0.0.1
-VLC_TESTED_HASH=d65ec2d64eb9d298cfe630ab915369ad0b253503
-VLC_TESTED_TREE=eab77929f09ed7daf24d6b8a74e0e5c5eab4d1d6
+VLC_TESTED_HASH=fef678a7fcf79f717fd909a43cf737f415f4fa9e
+VLC_TESTED_TREE=f3ac525baefb473ef03cc362ed837e9fb10f9921
 VLC_REPOSITORY=https://github.com/ijkm1234/vlc_for_xr_vlc.git
 
 RESET=0

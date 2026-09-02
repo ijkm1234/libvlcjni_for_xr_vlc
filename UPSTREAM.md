@@ -12,8 +12,8 @@ VLC core changes are maintained as normal commits in a dedicated fork.
 - VLC fork: https://github.com/ijkm1234/vlc_for_xr_vlc.git
 - Release branch: main
 - XR release tag: `v0.0.1`
-- Tagged release commit: `d65ec2d64eb9d298cfe630ab915369ad0b253503`
-- Released tree: `eab77929f09ed7daf24d6b8a74e0e5c5eab4d1d6`
+- Tagged release commit: `fef678a7fcf79f717fd909a43cf737f415f4fa9e`
+- Released tree: `f3ac525baefb473ef03cc362ed837e9fb10f9921`
 - Upstream VLC base: 3458be162f476ff64b639140b684efa1143ddeea
 
 The `v0.0.1` release includes the Android compatibility patches and XRVLC
